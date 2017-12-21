@@ -1,4 +1,5 @@
 ﻿using CheeseMVC.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CheeseMVC.ViewModels
 {
-    public class AddCheeseViewModel
+       public class AddCheeseViewModel
     {
         [Required]
         [Display(Name = "Cheese Name")]
@@ -17,31 +18,44 @@ namespace CheeseMVC.ViewModels
         [Required(ErrorMessage = "You must give your cheese a description")]
         public string Description { get; set; }
 
-        public CheeseType Type { get; set; }
+        [Required]
+        [Display(Name = "Category")]
+        public int CategoryID { get; set; }
 
-        public List<SelectListItem> CheeseTypes { get; set; }
+        public List<SelectListItem> Categories { get; set; }
 
-        public AddCheeseViewModel() {
+        public AddCheeseViewModel() { }
+        public AddCheeseViewModel(IEnumerable<CheeseCategory> categories)
+        {
+            Categories = new List<SelectListItem>();
 
-            CheeseTypes = new List<SelectListItem>();
-
-            // <option value="0">Hard</option>
-            CheeseTypes.Add(new SelectListItem {
-                Value = ((int) CheeseType.Hard).ToString(),
-                Text = CheeseType.Hard.ToString()
-            });
-
-            CheeseTypes.Add(new SelectListItem
+            foreach (var category in categories) 
             {
-                Value = ((int)CheeseType.Soft).ToString(),
-                Text = CheeseType.Soft.ToString()
-            });
+                // <option value="0">Hard</option>
+                Categories.Add(new SelectListItem
+                {
+                    Value = category.ID.ToString(),
+                    Text = category.Name
+                });
+            }
 
-            CheeseTypes.Add(new SelectListItem
-            {
-                Value = ((int)CheeseType.Fake).ToString(),
-                Text = CheeseType.Fake.ToString()
-            });
+            //<option value="0">Hard</option>
+           //Categories.Add(new SelectListItem {
+           //    Value = ((int) Categories.Hard).ToString(),
+           //    Text = Categories.Hard.ToString()
+           // });
+
+           //Categories.Add(new SelectListItem
+           // {
+           //     Value = ((int)Categories.Soft).ToString(),
+           //     Text = Categories.Soft.ToString()
+           // });
+
+           // Categories.Add(new SelectListItem
+           // {
+           //     Value = ((int)Categories.Fake).ToString(),
+           //     Text = Categories.Fake.ToString()
+           // });
 
         }
     }

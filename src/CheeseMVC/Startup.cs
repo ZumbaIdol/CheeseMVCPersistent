@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using CheeseMVC.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using System.IO;
 
 namespace CheeseMVC
 {
@@ -62,6 +64,22 @@ namespace CheeseMVC
                     template: "{controller=Cheese}/{action=Index}/{id?}");
             });
             context.Database.EnsureCreated();
+        }
+
+            public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<CheeseDbContext>
+        {
+            public CheeseDbContext CreateDbContext(string[] args)
+            {
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+                var builder = new DbContextOptionsBuilder<CheeseDbContext>();
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                builder.UseSqlServer(connectionString);
+                return new CheeseDbContext(builder.Options);
+            }
         }
     }
 }

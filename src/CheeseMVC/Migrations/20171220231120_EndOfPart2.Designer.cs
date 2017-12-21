@@ -11,9 +11,10 @@ using System;
 namespace CheeseMVC.Migrations
 {
     [DbContext(typeof(CheeseDbContext))]
-    partial class CheeseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171220231120_EndOfPart2")]
+    partial class EndOfPart2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,60 +51,12 @@ namespace CheeseMVC.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("CheeseMVC.Models.CheeseMenu", b =>
-                {
-                    b.Property<int>("CheeseID");
-
-                    b.Property<int>("MenuID");
-
-                    b.Property<int?>("CheeseMenuCheeseID");
-
-                    b.Property<int?>("CheeseMenuMenuID");
-
-                    b.HasKey("CheeseID", "MenuID");
-
-                    b.HasIndex("MenuID");
-
-                    b.HasIndex("CheeseMenuCheeseID", "CheeseMenuMenuID");
-
-                    b.ToTable("CheeseMenus");
-                });
-
-            modelBuilder.Entity("CheeseMVC.Models.Menu", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Menus");
-                });
-
             modelBuilder.Entity("CheeseMVC.Models.Cheese", b =>
                 {
                     b.HasOne("CheeseMVC.Models.CheeseCategory", "Category")
                         .WithMany("Cheeses")
                         .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CheeseMVC.Models.CheeseMenu", b =>
-                {
-                    b.HasOne("CheeseMVC.Models.Cheese", "Cheese")
-                        .WithMany("CheeseMenus")
-                        .HasForeignKey("CheeseID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CheeseMVC.Models.Menu", "Menu")
-                        .WithMany("CheeseMenus")
-                        .HasForeignKey("MenuID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CheeseMVC.Models.CheeseMenu")
-                        .WithMany("CheeseMenus")
-                        .HasForeignKey("CheeseMenuCheeseID", "CheeseMenuMenuID");
                 });
 #pragma warning restore 612, 618
         }
