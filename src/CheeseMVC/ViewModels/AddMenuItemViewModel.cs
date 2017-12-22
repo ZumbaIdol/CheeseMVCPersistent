@@ -34,9 +34,6 @@ namespace CheeseMVC.ViewModels
             }
         }
 
-        public AddMenuItemViewModel(Menu menu, List<Cheese> cheeses)
-        {
-            Menu = menu;
-        }
+        
     }
 }
