@@ -31,32 +31,12 @@ namespace CheeseMVC.ViewModels
 
             foreach (var category in categories) 
             {
-                // <option value="0">Hard</option>
                 Categories.Add(new SelectListItem
                 {
                     Value = category.ID.ToString(),
                     Text = category.Name
                 });
             }
-
-            //<option value="0">Hard</option>
-           //Categories.Add(new SelectListItem {
-           //    Value = ((int) Categories.Hard).ToString(),
-           //    Text = Categories.Hard.ToString()
-           // });
-
-           //Categories.Add(new SelectListItem
-           // {
-           //     Value = ((int)Categories.Soft).ToString(),
-           //     Text = Categories.Soft.ToString()
-           // });
-
-           // Categories.Add(new SelectListItem
-           // {
-           //     Value = ((int)Categories.Fake).ToString(),
-           //     Text = Categories.Fake.ToString()
-           // });
-
         }
     }
 }
